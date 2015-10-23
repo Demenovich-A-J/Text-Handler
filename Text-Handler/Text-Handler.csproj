@@ -43,10 +43,14 @@
   <ItemGroup>
     <Compile Include="Interfaces\IPunctuation.cs" />
     <Compile Include="Interfaces\ISenteceItem.cs" />
+    <Compile Include="Interfaces\ISentence.cs" />
     <Compile Include="Interfaces\IWord.cs" />
     <Compile Include="Structures\Symbol.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Text.cs" />
+    <Compile Include="TextObjects\Punctuation.cs" />
+    <Compile Include="TextObjects\Sentence.cs" />
     <Compile Include="TextObjects\Word.cs" />
   </ItemGroup>
   <ItemGroup>

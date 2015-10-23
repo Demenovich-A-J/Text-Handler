@@ -21,7 +21,7 @@ namespace Text_Handler.TextObjects
 
                 foreach (var symbol in Symbols)
                 {
-                    sb.Append(symbol);
+                    sb.Append(symbol.Chars);
                 }
 
                 return sb.ToString();
