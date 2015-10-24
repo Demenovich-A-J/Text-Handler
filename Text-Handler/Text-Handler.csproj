@@ -45,6 +45,8 @@
     <Compile Include="Interfaces\ISenteceItem.cs" />
     <Compile Include="Interfaces\ISentence.cs" />
     <Compile Include="Interfaces\IWord.cs" />
+    <Compile Include="SeparatorContainer.cs" />
+    <Compile Include="TextParser.cs" />
     <Compile Include="Structures\Symbol.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,6 +54,7 @@
     <Compile Include="TextObjects\Punctuation.cs" />
     <Compile Include="TextObjects\Sentence.cs" />
     <Compile Include="TextObjects\Word.cs" />
+    <Compile Include="Parser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
