@@ -2,7 +2,7 @@
 
 namespace Text_Handler.Interfaces
 {
-    public interface IPunctuation : ISenteceItem
+    public interface IPunctuation : ISentenceItem
     {
         Symbol Value { get; }
     }

@@ -2,7 +2,7 @@
 
 namespace Text_Handler.Interfaces
 {
-    public interface IWord : ISenteceItem
+    public interface IWord : ISentenceItem
     {
         Symbol[] Symbols { get; }
         Symbol this[int index] { get; }

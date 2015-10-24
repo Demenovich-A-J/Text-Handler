@@ -4,6 +4,7 @@ namespace Text_Handler.Interfaces
 {
     public interface ISentence
     {
-        ICollection<ISenteceItem> Items { get; }
+        ICollection<ISentenceItem> Items { get; }
+        bool IsInterrogative();
     }
 }
