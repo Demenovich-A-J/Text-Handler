@@ -13,6 +13,7 @@ namespace Text_Handler
     {
         private readonly SeparatorContainer _separators;
         private readonly Regex _lineTosentenceRegex = new Regex(@"(?<=[\.*!\?])\s+(?=[А-Я]|[A-Z])|(?=\W&([А-Я]|[A-Z]))", RegexOptions.Compiled);
+        private readonly Regex _sentenceToWordsRegex = new Regex(@"(\W*)([A-z]*|[А-я]*)(\W)", RegexOptions.Compiled);
 
         public TextParser(SeparatorContainer separators)
         {
@@ -34,17 +35,17 @@ namespace Text_Handler
                 {
                     line = buffer + line;
 
-                    var sentences = _lineTosentenceRegex.Split(line);
+                    var sentences = _lineTosentenceRegex.Split(line).Select(x => Regex.Replace(x.Trim(), @"\s+", @" ")).ToArray();
 
                     if (!sentenceSeparators.Contains(sentences.Last().Last().ToString()))
                     {
                         buffer = sentences.Last();
                         textResult.Sentences.AddRange(
-                            sentences.Select(x => x).Where(x => x != sentences.Last()).Select(parseSentence));
+                            sentences.Select(x => x).Where(x => x != sentences.Last()).Select(ParseSentence));
                     }
                     else
                     {
-                        textResult.Sentences.AddRange(sentences.Select(parseSentence));
+                        textResult.Sentences.AddRange(sentences.Select(ParseSentence));
                         buffer = null;
                     }
                 }
@@ -52,6 +53,7 @@ namespace Text_Handler
             catch (IOException exception)
             {
                 Console.WriteLine(exception.Data.ToString());
+                fileReader.Close();
             }
             finally
             {
@@ -63,13 +65,27 @@ namespace Text_Handler
 
         }
 
-        private ISentence parseSentence(string sentence)
+        private ISentence ParseSentence(string sentence)
         {
-            var res = new Sentence();
+            var result = new Sentence();
 
-            res.Items.Add(new Word(sentence));
+            foreach (Match match in _sentenceToWordsRegex.Matches(sentence))
+            {
+                if (match.Groups[1].Value != "" && match.Groups[1].Value != " ")
+                {
+                    result.Items.Add(new Punctuation(match.Groups[1].Value));
+                }
+                if (match.Groups[2].Value != "" && match.Groups[2].Value != " ")
+                {
+                    result.Items.Add(new Word(match.Groups[2].Value));
+                }
+                if (match.Groups[3].Value != "" && match.Groups[3].Value != " ")
+                {
+                    result.Items.Add(new Punctuation(match.Groups[3].Value));
+                }
+            } 
 
-            return res;
+            return result;
         }
     }
 }
