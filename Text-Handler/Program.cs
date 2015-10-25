@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -16,9 +17,9 @@ namespace Text_Handler
         {
             var a = new TextParser(new SeparatorContainer());
 
-            a.Parse();
-            Console.ReadKey();
+            a.Parse(new StreamReader("1.txt", Encoding.Default));
 
+            Console.ReadKey();
         }
     }
 }
