@@ -11,40 +11,40 @@ namespace Text_Handler
 {
     public class TextParser : Parser
     {
-        private SeparatorContainer separators;
-        private Regex lineTosentenceRegex = new Regex(@"(?<=[\.!\?])\s+", RegexOptions.Compiled);
+        private readonly SeparatorContainer _separators;
+        private readonly Regex _lineTosentenceRegex = new Regex(@"(?<=[\.*!\?])\s+(?=[А-Я]|[A-Z])|(?=\W&([А-Я]|[A-Z]))", RegexOptions.Compiled);
 
         public TextParser(SeparatorContainer separators)
         {
-            this.separators = separators;
+            this._separators = separators;
         }
 
-        public override Text Parse()
+        public override Text Parse(StreamReader fileReader)
         {
+            Text textResult = new Text();
+
             try
             {
-                var sentenceSeparators = separators.GetSentenceSeparator();
-                Text textResult = new Text();
+                var sentenceSeparators = _separators.GetSentenceSeparator();
+
                 string line;
                 string buffer = null;
-                
-                var fileReader = new StreamReader(@"1.txt", Encoding.Default);
-
 
                 while ((line = fileReader.ReadLine()) != null)
                 {
                     line = buffer + line;
 
-                    var str = lineTosentenceRegex.Split(line);
+                    var sentences = _lineTosentenceRegex.Split(line);
 
-                    if (!sentenceSeparators.Contains(str.Last().Last().ToString()))
+                    if (!sentenceSeparators.Contains(sentences.Last().Last().ToString()))
                     {
-                        buffer = str.Last();
-                        textResult.Sentences.AddRange(str.Select(x => x).Where(x => x != str.Last()).Select(parseSentence));
+                        buffer = sentences.Last();
+                        textResult.Sentences.AddRange(
+                            sentences.Select(x => x).Where(x => x != sentences.Last()).Select(parseSentence));
                     }
                     else
                     {
-                        textResult.Sentences.AddRange(str.Select(parseSentence));
+                        textResult.Sentences.AddRange(sentences.Select(parseSentence));
                         buffer = null;
                     }
                 }
@@ -53,8 +53,13 @@ namespace Text_Handler
             {
                 Console.WriteLine(exception.Data.ToString());
             }
+            finally
+            {
+                fileReader.Close();
+                fileReader.Dispose();
+            }
 
-            return null;
+            return textResult;
 
         }
 
