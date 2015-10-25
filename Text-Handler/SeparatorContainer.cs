@@ -6,11 +6,11 @@ namespace Text_Handler
 {
     public class SeparatorContainer
     {
-        private string[] sentenceSeparator = new[] {".", "!", "?"};
+        private readonly string[] _sentenceSeparator = {".", "!", "?"};
 
         public string[] GetSentenceSeparator()
         {
-            return sentenceSeparator;
+            return _sentenceSeparator;
         } 
     }
 }
