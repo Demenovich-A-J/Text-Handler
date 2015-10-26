@@ -40,8 +40,7 @@ namespace Text_Handler
                     if (!sentenceSeparators.Contains(sentences.Last().Last().ToString()))
                     {
                         buffer = sentences.Last();
-                        textResult.Sentences.AddRange(
-                            sentences.Select(x => x).Where(x => x != sentences.Last()).Select(ParseSentence));
+                        textResult.Sentences.AddRange(sentences.Select(x => x).Where(x => x != sentences.Last()).Select(ParseSentence));
                     }
                     else
                     {
@@ -62,7 +61,6 @@ namespace Text_Handler
             }
 
             return textResult;
-
         }
 
         private ISentence ParseSentence(string sentence)
