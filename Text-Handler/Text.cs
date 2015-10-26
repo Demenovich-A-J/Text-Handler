@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Text_Handler.Interfaces;
+using Text_Handler.TextObjects;
 
 namespace Text_Handler
 {
@@ -20,5 +23,14 @@ namespace Text_Handler
             }
         }
 
+        public IEnumerable<ISentence> SentencesInAscendingOrder()
+        {
+            return Sentences.OrderBy(x => x.Items.Count);
+        }
+
+        public IEnumerable<ISentence> GetInterrogativeSentences()
+        {
+            return Sentences.Where(x => x.IsInterrogative());
+        } 
     }
 }
