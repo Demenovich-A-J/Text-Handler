@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Text_Handler.Interfaces;
 using Text_Handler.TextObjects;
 
@@ -22,7 +23,6 @@ namespace Text_Handler
                 Sentences.Add(sentence);
             }
         }
-
         public IEnumerable<ISentence> SentencesInAscendingOrder()
         {
             return Sentences.OrderBy(x => x.Items.Count);
@@ -33,22 +33,21 @@ namespace Text_Handler
             return Sentences.Where(x => x.IsInterrogative());
         }
 
-        public IEnumerable<ISentence> GetSentencesСonsonant(int length)
+        public IEnumerable<IEnumerable<ISentenceItem>> GetSentencesWithoutConsonants(int length)
         {
-            foreach (var v in Sentences)
+            return Sentences.Select( x => x.RemoveConsonantsWords(length));
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var sentence in Sentences)
             {
-                foreach (var c in v.Items)
-                {
-                    var d = c as Word;
-                    if (d != null && d.IsСonsonant(SeparatorContainer.GetVowelsSeparator()))
-                    {
-                        v.Items.Remove(c);
-                    }
-                    
-                }
+                sb.Append(sentence + "\n");
             }
 
-            return null;
+            return sb.ToString();
         }
     }
 }
