@@ -39,7 +39,7 @@ namespace Text_Handler.TextObjects
         public int Length { get; private set; }
         public bool IsСonsonant(string[] vowels)
         {
-            return vowels.Contains(Symbols[0].Chars);
+            return !vowels.Contains(Symbols[0].Chars);
         }
     }
 }
