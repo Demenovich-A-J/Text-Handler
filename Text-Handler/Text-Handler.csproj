@@ -41,13 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CollectionHelper.cs" />
+    <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="Interfaces\IPunctuation.cs" />
     <Compile Include="Interfaces\ISenteceItem.cs" />
     <Compile Include="Interfaces\ISentence.cs" />
     <Compile Include="Interfaces\IWord.cs" />
-    <Compile Include="SeparatorContainer.cs" />
     <Compile Include="Parser\TextParser.cs" />
+    <Compile Include="Separators\PunctuationSeparator.cs" />
+    <Compile Include="Separators\VolwesSeparator.cs" />
     <Compile Include="Structures\Symbol.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
