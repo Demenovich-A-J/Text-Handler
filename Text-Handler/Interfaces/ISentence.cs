@@ -4,7 +4,8 @@ namespace Text_Handler.Interfaces
 {
     public interface ISentence
     {
-        ICollection<ISentenceItem> Items { get; }
+        IList<ISentenceItem> Items { get; }
         bool IsInterrogative();
+        IEnumerable<ISentenceItem> RemoveConsonantsWords(int length);
     }
 }

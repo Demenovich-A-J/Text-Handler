@@ -3,20 +3,15 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Text_Handler.Interfaces;
+using Text_Handler.Separators;
 using Text_Handler.TextObjects;
 
 namespace Text_Handler.Parser
 {
     public class TextParser : Parser
     {
-        private readonly SeparatorContainer _separators;
         private readonly Regex _lineTosentenceRegex = new Regex(@"(?<=[\.*!\?])\s+(?=[А-Я]|[A-Z])|(?=\W&([А-Я]|[A-Z]))", RegexOptions.Compiled);
         private readonly Regex _sentenceToWordsRegex = new Regex(@"(\W*)([A-z]*|[А-я]*)(\W)", RegexOptions.Compiled);
-
-        public TextParser(SeparatorContainer separators)
-        {
-            this._separators = separators;
-        }
 
         public override Text Parse(StreamReader fileReader)
         {
@@ -24,26 +19,34 @@ namespace Text_Handler.Parser
 
             try
             {
-                var sentenceSeparators = _separators.GetSentenceSeparator();
-
                 string line;
                 string buffer = null;
 
                 while ((line = fileReader.ReadLine()) != null)
                 {
-                    line = buffer + line;
 
-                    var sentences = _lineTosentenceRegex.Split(line).Select(x => Regex.Replace(x.Trim(), @"\s+", @" ")).ToArray();
+                    if (Regex.Replace(line.Trim(), @"\s+", @" ") != "")
+                    {
+                        line = buffer + line;
 
-                    if (!sentenceSeparators.Contains(sentences.Last().Last().ToString()))
-                    {
-                        buffer = sentences.Last();
-                        textResult.Sentences.AddRange(sentences.Select(x => x).Where(x => x != sentences.Last()).Select(ParseSentence));
-                    }
-                    else
-                    {
-                        textResult.Sentences.AddRange(sentences.Select(ParseSentence));
-                        buffer = null;
+                        var sentences =
+                            _lineTosentenceRegex.Split(line)
+                                .Select(x => Regex.Replace(x.Trim(), @"\s+", @" "))
+                                .ToArray();
+
+                        if (
+                            !PunctuationSeparator.SentencePunctuationSeparator.Contains(
+                                sentences.Last().Last().ToString()))
+                        {
+                            buffer = sentences.Last();
+                            textResult.Sentences.AddRange(
+                                sentences.Select(x => x).Where(x => x != sentences.Last()).Select(ParseSentence));
+                        }
+                        else
+                        {
+                            textResult.Sentences.AddRange(sentences.Select(ParseSentence));
+                            buffer = null;
+                        }
                     }
                 }
             }
@@ -61,21 +64,22 @@ namespace Text_Handler.Parser
             return textResult;
         }
 
-        private ISentence ParseSentence(string sentence)
+        protected virtual ISentence ParseSentence(string sentence)
         {
             var result = new Sentence();
 
             foreach (Match match in _sentenceToWordsRegex.Matches(sentence))
             {
+
                 if (match.Groups[1].Value != "" && match.Groups[1].Value != " ")
                 {
-                    result.Items.Add(new Punctuation(match.Groups[1].Value));
+                    result.Items.Add(new Punctuation(Regex.Replace(match.Groups[1].Value.Trim(), @"\s+", @" ")));
                 }
-                if (match.Groups[2].Value != "" && match.Groups[2].Value != " ")
+                if (match.Groups[2].Value.Trim() != "" && match.Groups[2].Value.Trim() != " ")
                 {
                     result.Items.Add(new Word(match.Groups[2].Value));
                 }
-                if (match.Groups[3].Value != "" && match.Groups[3].Value != " ")
+                if (match.Groups[3].Value.Trim() != "" && match.Groups[3].Value.Trim() != " ")
                 {
                     result.Items.Add(new Punctuation(match.Groups[3].Value));
                 }
