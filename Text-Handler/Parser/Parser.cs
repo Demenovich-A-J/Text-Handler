@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 
-namespace Text_Handler
+namespace Text_Handler.Parser
 {
     public abstract class Parser
     {

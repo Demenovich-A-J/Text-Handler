@@ -31,6 +31,24 @@ namespace Text_Handler
         public IEnumerable<ISentence> GetInterrogativeSentences()
         {
             return Sentences.Where(x => x.IsInterrogative());
-        } 
+        }
+
+        public IEnumerable<ISentence> GetSentencesСonsonant(int length)
+        {
+            foreach (var v in Sentences)
+            {
+                foreach (var c in v.Items)
+                {
+                    var d = c as Word;
+                    if (d != null && d.IsСonsonant(SeparatorContainer.GetVowelsSeparator()))
+                    {
+                        v.Items.Remove(c);
+                    }
+                    
+                }
+            }
+
+            return null;
+        }
     }
 }

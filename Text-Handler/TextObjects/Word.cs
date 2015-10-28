@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Text;
+using System.Threading;
 using Text_Handler.Interfaces;
 using Text_Handler.Structures;
 
@@ -36,5 +37,9 @@ namespace Text_Handler.TextObjects
         }
 
         public int Length { get; private set; }
+        public bool IsСonsonant(string[] vowels)
+        {
+            return vowels.Contains(Symbols[0].Chars);
+        }
     }
 }

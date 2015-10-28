@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using Text_Handler.Interfaces;
 using Text_Handler.TextObjects;
 
-namespace Text_Handler
+namespace Text_Handler.Parser
 {
     public class TextParser : Parser
     {
