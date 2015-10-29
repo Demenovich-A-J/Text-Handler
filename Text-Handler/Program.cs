@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using Text_Handler.Parser;
+using Text_Handler.TextObjects;
 
 namespace Text_Handler
 {
@@ -13,9 +14,9 @@ namespace Text_Handler
         {
             var a = new TextParser();
 
-            var c = a.Parse(new StreamReader("1.txt", Encoding.Default));
+            var c = a.Parse(new StreamReader("1.txt", Encoding. UTF8));
 
-            var d = c.GetSentencesWithoutConsonants(6).ToList().ToList();
+            //var d = c.GetSentencesWithoutConsonants(6).ToList().ToList();
 
             Console.WriteLine(c);
 
