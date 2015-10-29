@@ -14,7 +14,9 @@ namespace Text_Handler
         {
             var a = new TextParser();
 
-            var c = a.Parse(new StreamReader("1.txt", Encoding. UTF8));
+            var c = a.Parse(new StreamReader("1.txt", Encoding.Default));
+
+            c.GetSentencesWithReplaceWord(0, 6, "привет, красавчик", a);
 
             //var d = c.GetSentencesWithoutConsonants(6).ToList().ToList();
 
