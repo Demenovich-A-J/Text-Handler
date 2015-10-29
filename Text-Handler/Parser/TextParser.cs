@@ -64,39 +64,22 @@ namespace Text_Handler.Parser
             return textResult;
         }
 
-        protected virtual ISentence ParseSentence(string sentence)
+        public override ISentence ParseSentence(string sentence)
         {
             var result = new Sentence();
 
+            Func<string, ISentenceItem> toISentenceItem = item => (!PunctuationSeparator.AllSentenceSeparators.Contains(item))
+                ?   (ISentenceItem) new Word(item)
+                :   new Punctuation(item);
+
             foreach (Match match in _sentenceToWordsRegex.Matches(sentence))
             {
-                if (match.Groups[1].Value.Trim() != "")
+                for (int i = 1; i < match.Groups.Count; i++)
                 {
-                    result.Items.Add(new Punctuation(match.Groups[1].Value.Trim()));
-                }
-                if (match.Groups[2].Value.Trim() != "")
-                {
-                    result.Items.Add(new Word(match.Groups[2].Value.Trim()));
-                }
-                if (match.Groups[3].Value.Trim() != "")
-                {
-                    result.Items.Add(new Punctuation(match.Groups[3].Value.Trim()));
-                }
-                if (match.Groups[4].Value.Trim() != "")
-                {
-                    result.Items.Add(new Punctuation(match.Groups[4].Value.Trim()));
-                }
-                if (match.Groups[5].Value.Trim() != "")
-                {
-                    result.Items.Add(new Word(match.Groups[5].Value.Trim()));
-                }
-                if (match.Groups[6].Value.Trim() != "")
-                {
-                    result.Items.Add(new Punctuation(match.Groups[6].Value.Trim()));
-                }
-                if (match.Groups[7].Value.Trim() != "")
-                {
-                    result.Items.Add(new Punctuation(match.Groups[7].Value.Trim()));
+                    if (match.Groups[i].Value.Trim() != "")
+                    {
+                        result.Items.Add(toISentenceItem(match.Groups[i].Value.Trim()));
+                    }
                 }
             }
 
