@@ -11,7 +11,7 @@ namespace Text_Handler.Parser
     public class TextParser : Parser
     {
         private readonly Regex _lineTosentenceRegex = new Regex(@"(?<=[\.*!\?])\s+(?=[А-Я]|[A-Z])|(?=\W&([А-Я]|[A-Z]))", RegexOptions.Compiled);
-        private readonly Regex _sentenceToWordsRegex = new Regex(@"(\W*)([A-z]*|[А-я]*)(\W)", RegexOptions.Compiled);
+        private readonly Regex _sentenceToWordsRegex = new Regex(@"(\W*)(\w+\-\w+)(\W)|(\W*)(\w+)(\W)|(.*)", RegexOptions.Compiled);
 
         public override Text Parse(StreamReader fileReader)
         {
@@ -70,20 +70,35 @@ namespace Text_Handler.Parser
 
             foreach (Match match in _sentenceToWordsRegex.Matches(sentence))
             {
-
-                if (match.Groups[1].Value != "" && match.Groups[1].Value != " ")
+                if (match.Groups[1].Value.Trim() != "")
                 {
-                    result.Items.Add(new Punctuation(Regex.Replace(match.Groups[1].Value.Trim(), @"\s+", @" ")));
+                    result.Items.Add(new Punctuation(match.Groups[1].Value.Trim()));
                 }
-                if (match.Groups[2].Value.Trim() != "" && match.Groups[2].Value.Trim() != " ")
+                if (match.Groups[2].Value.Trim() != "")
                 {
-                    result.Items.Add(new Word(match.Groups[2].Value));
+                    result.Items.Add(new Word(match.Groups[2].Value.Trim()));
                 }
-                if (match.Groups[3].Value.Trim() != "" && match.Groups[3].Value.Trim() != " ")
+                if (match.Groups[3].Value.Trim() != "")
                 {
-                    result.Items.Add(new Punctuation(match.Groups[3].Value));
+                    result.Items.Add(new Punctuation(match.Groups[3].Value.Trim()));
                 }
-            } 
+                if (match.Groups[4].Value.Trim() != "")
+                {
+                    result.Items.Add(new Punctuation(match.Groups[4].Value.Trim()));
+                }
+                if (match.Groups[5].Value.Trim() != "")
+                {
+                    result.Items.Add(new Word(match.Groups[5].Value.Trim()));
+                }
+                if (match.Groups[6].Value.Trim() != "")
+                {
+                    result.Items.Add(new Punctuation(match.Groups[6].Value.Trim()));
+                }
+                if (match.Groups[7].Value.Trim() != "")
+                {
+                    result.Items.Add(new Punctuation(match.Groups[7].Value.Trim()));
+                }
+            }
 
             return result;
         }

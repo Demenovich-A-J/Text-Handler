@@ -70,8 +70,8 @@ namespace Text_Handler.TextObjects
                     {
                         while (true)
                         {
-                            if(i == Items.Count - 1) break;
                             i++;
+                            if(i == Items.Count) break;
                             sb.Append(Items[i].Chars);
                             nextElement = Items.ElementAtOrDefault(i + 1);
 
@@ -94,12 +94,11 @@ namespace Text_Handler.TextObjects
                             {
                                 sb.Append(" ");
                             }
-
-
                         }
-
+                        if (i == Items.Count) break;
+                        if(!PunctuationSeparator.DoubleSentencePunctuationSeparator.Contains(Items[i].Chars))
+                            continue;
                     }
-
                     sb.Append(" ");
                 }
             }
