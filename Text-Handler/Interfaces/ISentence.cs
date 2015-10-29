@@ -7,5 +7,6 @@ namespace Text_Handler.Interfaces
         IList<ISentenceItem> Items { get; }
         bool IsInterrogative();
         IEnumerable<ISentenceItem> RemoveConsonantsWords(int length);
+        IEnumerable<ISentenceItem> ReplaceWordByElements(int length, IList<ISentenceItem> items);
     }
 }

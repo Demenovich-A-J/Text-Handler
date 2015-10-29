@@ -18,7 +18,6 @@ namespace Text_Handler.TextObjects
 
         public IEnumerable<ISentenceItem> RemoveConsonantsWords(int length)
         {
-
             for (int i = 0; i < Items.Count; i++)
             {
                 var word = Items[i] as Word;
@@ -31,6 +30,23 @@ namespace Text_Handler.TextObjects
             return Items;
         }
 
+        public IEnumerable<ISentenceItem> ReplaceWordByElements(int length, IList<ISentenceItem> items)
+        {
+            for (int i = 0; i < Items.Count; i++)
+            {
+                if (Items[i].Chars.Length != length) continue;
+
+                Items.RemoveAt(i);
+
+                foreach (var item in items)
+                {
+                    Items.Insert(i, item);
+                    i++;
+                }
+            }
+
+            return Items;
+        }
 
         public Sentence()
         {
@@ -45,10 +61,10 @@ namespace Text_Handler.TextObjects
             }
         }
 
+        //TODO rework algorithm, remove ovrride and add method SentenceToString();
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            bool flag = false;
 
             for (int i = 0; i < Items.Count; i++)
             {
