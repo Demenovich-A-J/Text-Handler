@@ -35,7 +35,7 @@ namespace Text_Handler.Parser
                                 .ToArray();
 
                         if (
-                            !PunctuationSeparator.SentencePunctuationSeparator.Contains(
+                            !PunctuationSeparator.EndPunctuationSeparator.Contains(
                                 sentences.Last().Last().ToString()))
                         {
                             buffer = sentences.Last();
@@ -70,7 +70,7 @@ namespace Text_Handler.Parser
 
             Func<string, ISentenceItem> toISentenceItem = item => (!PunctuationSeparator.AllSentenceSeparators.Contains(item))
                 ?   (ISentenceItem) new Word(item)
-                :   new Punctuation(item);
+                :   new Punctuation(Convert.ToChar(item));
 
             foreach (Match match in _sentenceToWordsRegex.Matches(sentence))
             {
