@@ -8,5 +8,6 @@ namespace Text_Handler.Interfaces
         bool IsInterrogative();
         IEnumerable<ISentenceItem> RemoveConsonantsWords(int length);
         IEnumerable<ISentenceItem> ReplaceWordByElements(int length, IList<ISentenceItem> items);
+        string SentenceToString();
     }
 }
