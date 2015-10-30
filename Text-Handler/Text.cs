@@ -46,7 +46,7 @@ namespace Text_Handler
         }
 
         /// <summary>
-        /// Replaces the word in the selected sentence on list of items type ISentenceItem.
+        /// Replaces the word in selected sentence by list of items type ISentenceItem.
         /// </summary>
         /// <param name="index">Index of sentence.</param>
         /// <param name="length">Length of word to replace.</param>
@@ -56,17 +56,30 @@ namespace Text_Handler
             return new Sentence(Sentences[index].ReplaceWordByElements(length, elements));
         }
 
-        //TODO remove ovrride and add method TextToString()
-        public override string ToString()
+        /// <summary>
+        /// Replaces the word in selected sentence by line.
+        /// </summary>
+        /// <param name="index">Index of sentence.</param>
+        /// <param name="length">Length of word to replace.</param>
+        /// <param name="line">String with words and punctuation.</param>
+        /// <param name="parseLine">Method to parse string and get new ISentence.</param>
+        /// <returns></returns>
+        public ISentence ReplaceWordInSentence(int index, int length, string line,Func<string,ISentence> parseLine )
+        {
+            return new Sentence(Sentences[index].ReplaceWordByElements(length, parseLine(line).Items));
+        }
+
+        public string TextToString()
         {
             StringBuilder sb = new StringBuilder();
 
             foreach (var sentence in Sentences)
             {
-                sb.Append(sentence + "\n");
+                sb.Append(sentence.SentenceToString() + "\n");
             }
 
             return sb.ToString();
+
         }
     }
 }
