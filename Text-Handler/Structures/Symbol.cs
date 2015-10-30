@@ -4,23 +4,17 @@ namespace Text_Handler.Structures
 {
     public struct Symbol
     {
-        private string _chars;
+        private char _chars;
 
-        public string Chars
+        public char Chars
         {
             get { return _chars; }
             set { _chars = value; }
         }
 
-        public Symbol(string chars)
+        public Symbol(char chars)
         {
             this._chars = chars;
         }
-
-        public Symbol(char item)
-        {
-            this._chars = String.Format("{0}",item);
-        }
-
     }
 }
