@@ -8,14 +8,14 @@ namespace Text_Handler.TextObjects
         private Symbol _value;
         public string Chars
         {
-            get { return _value.Chars; }
+            get { return _value.Chars.ToString(); }
         }
         public Symbol Value
         {
             get { return this._value; }
         }
 
-        public Punctuation(string chars)
+        public Punctuation(char chars)
         {
             _value = new Symbol(chars);
         }
