@@ -1,0 +1,6 @@
+D:\SourceTreeProjects\Text-Handler\Text-Handler\bin\Debug\Text-Handler.exe.config
+D:\SourceTreeProjects\Text-Handler\Text-Handler\bin\Debug\Text-Handler.exe
+D:\SourceTreeProjects\Text-Handler\Text-Handler\bin\Debug\Text-Handler.pdb
+D:\SourceTreeProjects\Text-Handler\Text-Handler\obj\Debug\Text-Handler.csprojResolveAssemblyReference.cache
+D:\SourceTreeProjects\Text-Handler\Text-Handler\obj\Debug\Text-Handler.exe
+D:\SourceTreeProjects\Text-Handler\Text-Handler\obj\Debug\Text-Handler.pdb
