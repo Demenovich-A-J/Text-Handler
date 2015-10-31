@@ -4,6 +4,7 @@ namespace Text_Handler.Interfaces
 {
     public interface IPunctuation : ISentenceItem
     {
-        Symbol Value { get; }
+        Symbol[] Symbols { get; }
+        Symbol this[int index] { get; }
     }
 }
