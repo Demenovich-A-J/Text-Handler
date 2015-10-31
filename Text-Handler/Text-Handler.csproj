@@ -42,17 +42,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\CollectionHelper.cs" />
+    <Compile Include="Interfaces\IDigit.cs" />
     <Compile Include="Interfaces\IPunctuation.cs" />
     <Compile Include="Interfaces\ISenteceItem.cs" />
     <Compile Include="Interfaces\ISentence.cs" />
     <Compile Include="Interfaces\IWord.cs" />
     <Compile Include="Parser\TextParser.cs" />
+    <Compile Include="Separators\DigitSeparator.cs" />
     <Compile Include="Separators\PunctuationSeparator.cs" />
     <Compile Include="Separators\VolwesSeparator.cs" />
     <Compile Include="Structures\Symbol.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Text.cs" />
+    <Compile Include="TextObjects\Digit.cs" />
     <Compile Include="TextObjects\Punctuation.cs" />
     <Compile Include="TextObjects\Sentence.cs" />
     <Compile Include="TextObjects\Word.cs" />
@@ -60,9 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Files\Text.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
