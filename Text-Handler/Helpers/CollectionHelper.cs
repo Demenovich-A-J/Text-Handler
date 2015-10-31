@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Text_Handler.Interfaces;
+﻿using System.Collections.Generic;
 
-namespace Text_Handler
+namespace Text_Handler.Helpers
 {
     public static class CollectionHelper
     {
         public static void AddRange<T>(this ICollection<T> destination,
-           IEnumerable<T> source)
+            IEnumerable<T> source)
         {
-            foreach (T item in source)
+            foreach (var item in source)
             {
                 destination.Add(item);
             }

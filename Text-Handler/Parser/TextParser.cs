@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Text_Handler.Helpers;
 using Text_Handler.Interfaces;
 using Text_Handler.Separators;
 using Text_Handler.TextObjects;
@@ -10,12 +11,18 @@ namespace Text_Handler.Parser
 {
     public class TextParser : Parser
     {
-        private readonly Regex _lineTosentenceRegex = new Regex(@"(?<=[\.*!\?])\s+(?=[А-Я]|[A-Z])|(?=\W&([А-Я]|[A-Z]))", RegexOptions.Compiled);
-        private readonly Regex _sentenceToWordsRegex = new Regex(@"(\W*)(\w+\-\w+)(\W)|(\W*)(\w+)(\W)|(.*)", RegexOptions.Compiled);
+        private readonly Regex _lineTosentenceRegex = new Regex(
+            @"(?<=[\.*!\?])\s+(?=[А-Я]|[A-Z])|(?=\W&([А-Я]|[A-Z]))", RegexOptions.Compiled);
+
+        private readonly Regex _sentenceToWordsRegex =
+            new Regex(
+                @"(\W*)(\w+[\-|`]\w+)(\!\=|\>\=|\=\<|\/|\=\=|\?\!|\!\?|\.{3}|\W)|(\W*)(\w+|\d+)(\!\=|\>\=|\=\<|\/|\=\=|\?\!|\!\?|\.{3}|\W)|(.*)",
+                RegexOptions.Compiled);
+
 
         public override Text Parse(StreamReader fileReader)
         {
-            Text textResult = new Text();
+            var textResult = new Text();
 
             try
             {
@@ -24,7 +31,6 @@ namespace Text_Handler.Parser
 
                 while ((line = fileReader.ReadLine()) != null)
                 {
-
                     if (Regex.Replace(line.Trim(), @"\s+", @" ") != "")
                     {
                         line = buffer + line;
@@ -68,13 +74,18 @@ namespace Text_Handler.Parser
         {
             var result = new Sentence();
 
-            Func<string, ISentenceItem> toISentenceItem = item => (!PunctuationSeparator.AllSentenceSeparators.Contains(item))
-                ?   (ISentenceItem) new Word(item)
-                :   new Punctuation(Convert.ToChar(item));
+            Func<string, ISentenceItem> toISentenceItem =
+                item =>
+                    (!PunctuationSeparator.AllSentenceSeparators.Contains(item) &&
+                     !DigitSeparator.ArabicDigits.Contains(item[0].ToString()))
+                        ? (ISentenceItem) new Word(item)
+                        : (DigitSeparator.ArabicDigits.Contains(item[0].ToString()))
+                            ? (ISentenceItem) new Digit(item)
+                            : new Punctuation(item);
 
             foreach (Match match in _sentenceToWordsRegex.Matches(sentence))
             {
-                for (int i = 1; i < match.Groups.Count; i++)
+                for (var i = 1; i < match.Groups.Count; i++)
                 {
                     if (match.Groups[i].Value.Trim() != "")
                     {
