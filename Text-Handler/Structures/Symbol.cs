@@ -1,20 +1,23 @@
-﻿using System;
-
-namespace Text_Handler.Structures
+﻿namespace Text_Handler.Structures
 {
     public struct Symbol
     {
-        private char _chars;
+        private string _chars;
 
-        public char Chars
+        public string Chars
         {
             get { return _chars; }
             set { _chars = value; }
         }
 
-        public Symbol(char chars)
+        public Symbol(string chars)
         {
-            this._chars = chars;
+            _chars = chars;
+        }
+
+        public Symbol(char source)
+        {
+            _chars = string.Format("{0}", source);
         }
     }
 }
