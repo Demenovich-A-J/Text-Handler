@@ -1,13 +1,12 @@
-﻿using Text_Handler.Interfaces;
-
-namespace Text_Handler.Separators
+﻿namespace Text_Handler.Separators
 {
     public static class VolwesSeparator
     {
-        private static readonly string[] _separator = { "а", "у", "о","ы", "и", "э", "я", "ю", "ё", "е" };
-        public static string[] Separator
+        private static readonly string[] _russianVolwesSeparator = {"а", "у", "о", "ы", "и", "э", "я", "ю", "ё", "е"};
+
+        public static string[] RussianVolwesSeparator
         {
-            get { return _separator; }
+            get { return _russianVolwesSeparator; }
         }
     }
 }

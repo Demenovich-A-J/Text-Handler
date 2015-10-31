@@ -1,24 +1,20 @@
-﻿// ReSharper disable All
-namespace Text_Handler.Separators
+﻿namespace Text_Handler.Separators
 {
     public static class PunctuationSeparator
     {
         private static readonly string[] _repeatPunctuationSeparator = {"\"", "'"};
-        private static readonly string[] _endPunctuationSeparator = {"!", ".", "?"};
-        private static readonly string[] _innerPunctuationSeparator = { ",", ".", ";", ":"};
+        private static readonly string[] _endPunctuationSeparator = {"!", ".", "?", "...", "?!", "!?"};
+        private static readonly string[] _innerPunctuationSeparator = {",", ";", ":"};
         private static readonly string[] _openPunctuationSeparator = {"<", "(", "[", "{", "„", "«", "‘"};
         private static readonly string[] _closePunctuationSeparator = {")", ">", "]", "}", "“", "»", "’"};
+        private static readonly string[] _operationPunctuationSeparator = {"*", "/", "+", "=", "==", "!=", ">=", "=<"};
+
         private static readonly string[] _allSentenceSeparators =
         {
             ",", ".", "!", "?", "—", "-", "\"", "'", "(", ")",
-            "<", ">", ":", ";", "[", "]", "{", "}", "‒", "–", "—", 
-            "―", "„", "“", "«", "»", "‘", "’"
+            "<", ">", ":", ";", "[", "]", "{", "}", "‒", "–", "—",
+            "―", "„", "“", "«", "»", "‘", "’", "...", "?!", "!?", "*", "/", "=", "==", "!=", ">=", "=<", "+"
         };
-
-        public static string[] AllSentenceSeparators
-        {
-            get { return _allSentenceSeparators; }
-        }
 
         public static string[] RepeatPunctuationSeparator
         {
@@ -43,6 +39,16 @@ namespace Text_Handler.Separators
         public static string[] ClosePunctuationSeparator
         {
             get { return _closePunctuationSeparator; }
+        }
+
+        public static string[] AllSentenceSeparators
+        {
+            get { return _allSentenceSeparators; }
+        }
+
+        public static string[] OperationPunctuationSeparator
+        {
+            get { return _operationPunctuationSeparator; }
         }
     }
 }
