@@ -1,23 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Text_Handler.Interfaces;
-using Text_Handler.Parser;
+using Text_Handler.Separators;
 using Text_Handler.TextObjects;
 
 namespace Text_Handler
 {
     public class Text
     {
-        public IList<ISentence> Sentences { get; set; }
-
-        public ISentence this[int index]
-        {
-            get { return this.Sentences[index]; }
-        }
-
         public Text()
         {
             Sentences = new List<ISentence>();
@@ -30,48 +22,67 @@ namespace Text_Handler
                 Sentences.Add(sentence);
             }
         }
-        public IEnumerable<ISentence> SentencesInAscendingOrder()
+
+        public IList<ISentence> Sentences { get; set; }
+
+        public ISentence this[int index]
+        {
+            get { return Sentences[index]; }
+        }
+
+        public IEnumerable<ISentence> GetSentencesInAscendingOrder()
         {
             return Sentences.OrderBy(x => x.Items.Count);
         }
 
-        public IEnumerable<ISentence> GetInterrogativeSentences()
+        public IEnumerable<IWord> GetWordsFromInterrogativeSentences(int length)
         {
-            return Sentences.Where(x => x.IsInterrogative());
+            var result = new List<IWord>();
+
+            foreach (var sentence in Sentences.Where(sentence => sentence.IsInterrogative))
+            {
+                result.AddRange(sentence.GetWordsWithoutRepetition(length));
+            }
+
+            return result.GroupBy(x => x.Chars.ToLower()).Select(x => x.First()).ToList();
         }
 
-        public IEnumerable<IEnumerable<ISentenceItem>> GetSentencesWithoutConsonants(int length)
+        public IEnumerable<ISentence> GetSentencesWithoutConsonants(int length)
         {
-            return Sentences.Select( x => x.RemoveConsonantsWords(length));
+            return
+                Sentences.Select(
+                    x =>
+                        x.RemoveWordsBy(y => y.Length == length && y.IsСonsonant(VolwesSeparator.RussianVolwesSeparator)));
         }
 
         /// <summary>
-        /// Replaces the word in selected sentence by list of items type ISentenceItem.
+        ///     Replace word in selected sentence by list of items type ISentenceItem.
         /// </summary>
         /// <param name="index">Index of sentence.</param>
         /// <param name="length">Length of word to replace.</param>
         /// <param name="elements">ISentenceItem elements that will be insert instead word into the sentence.</param>
+        /// <returns>Return new sentence with replaced words.</returns>
         public ISentence ReplaceWordInSentence(int index, int length, IList<ISentenceItem> elements)
         {
-            return new Sentence(Sentences[index].ReplaceWordByElements(length, elements));
+            return new Sentence(Sentences[index].ReplaceWordByElements((x => x.Length == length), elements));
         }
 
         /// <summary>
-        /// Replaces the word in selected sentence by line.
+        ///     Replace word in selected sentence by line.
         /// </summary>
         /// <param name="index">Index of sentence.</param>
         /// <param name="length">Length of word to replace.</param>
         /// <param name="line">String with words and punctuation.</param>
         /// <param name="parseLine">Method to parse string and get new ISentence.</param>
-        /// <returns></returns>
-        public ISentence ReplaceWordInSentence(int index, int length, string line,Func<string,ISentence> parseLine )
+        /// <returns>Return new sentence with replaced words.</returns>
+        public ISentence ReplaceWordInSentence(int index, int length, string line, Func<string, ISentence> parseLine)
         {
-            return new Sentence(Sentences[index].ReplaceWordByElements(length, parseLine(line).Items));
+            return new Sentence(Sentences[index].ReplaceWordByElements((x => x.Length == length), parseLine(line).Items));
         }
 
         public string TextToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
             foreach (var sentence in Sentences)
             {
@@ -79,7 +90,6 @@ namespace Text_Handler
             }
 
             return sb.ToString();
-
         }
     }
 }
