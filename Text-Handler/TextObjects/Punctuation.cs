@@ -9,29 +9,12 @@ namespace Text_Handler.TextObjects
     {
         public Punctuation(string chars)
         {
-            Symbols = chars != null ? chars.Select(x => new Symbol(x)).ToArray() : null;
+            Symbols = new Symbol(chars);
         }
 
-        public string Chars
-        {
-            get
-            {
-                var sb = new StringBuilder();
+        public string Chars => Symbols.Chars;
 
-                foreach (var symbol in Symbols)
-                {
-                    sb.Append(symbol.Chars);
-                }
+        public Symbol Symbols { get; }
 
-                return sb.ToString();
-            }
-        }
-
-        public Symbol[] Symbols { get; private set; }
-
-        public Symbol this[int index]
-        {
-            get { return Symbols[index]; }
-        }
     }
 }
