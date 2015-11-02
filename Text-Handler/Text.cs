@@ -27,11 +27,8 @@ namespace Text_Handler
 
         public ISentence this[int index] => Sentences[index];
 
-        public IEnumerable<ISentence> GetSentencesInAscendingOrder()
-        {
-            return Sentences.OrderBy(x => x.Items.Count);
-        }
-
+        public IEnumerable<ISentence> GetSentencesInAscendingOrder() => Sentences.OrderBy(x => x.Items.Count);
+   
         public IEnumerable<IWord> GetWordsFromInterrogativeSentences(int length)
         {
             var result = new List<IWord>();

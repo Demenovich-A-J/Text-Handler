@@ -1,6 +1,6 @@
 ﻿namespace Text_Handler.Interfaces
 {
-    public interface ISentenceItem
+    internal interface ISentenceItem
     {
         string Chars { get; }
     }
