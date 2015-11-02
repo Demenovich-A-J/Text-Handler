@@ -9,8 +9,8 @@ namespace Text_Handler.TextObjects
     {
         public Word(string chars)
         {
-            Symbols = chars != null ? chars.Select(x => new Symbol(x)).ToArray() : null;
-            Length = Symbols.Length != null ? Symbols.Length : 0;
+            Symbols = chars?.Select(x => new Symbol(x)).ToArray();
+            Length = Symbols?.Length ?? 0;
         }
 
         public string Chars
@@ -28,14 +28,11 @@ namespace Text_Handler.TextObjects
             }
         }
 
-        public Symbol[] Symbols { get; private set; }
+        public Symbol[] Symbols { get; }
 
-        public Symbol this[int index]
-        {
-            get { return Symbols[index]; }
-        }
+        public Symbol this[int index] => Symbols[index];
 
-        public int Length { get; private set; }
+        public int Length { get; }
 
         public bool IsСonsonant(string[] vowels)
         {

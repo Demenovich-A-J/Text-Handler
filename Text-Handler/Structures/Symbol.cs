@@ -2,22 +2,16 @@
 {
     public struct Symbol
     {
-        private string _chars;
-
-        public string Chars
-        {
-            get { return _chars; }
-            set { _chars = value; }
-        }
+        public string Chars { get; set; }
 
         public Symbol(string chars)
         {
-            _chars = chars;
+            Chars = chars;
         }
 
         public Symbol(char source)
         {
-            _chars = string.Format("{0}", source);
+            Chars = $"{source}";
         }
     }
 }

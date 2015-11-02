@@ -25,10 +25,7 @@ namespace Text_Handler
 
         public IList<ISentence> Sentences { get; set; }
 
-        public ISentence this[int index]
-        {
-            get { return Sentences[index]; }
-        }
+        public ISentence this[int index] => Sentences[index];
 
         public IEnumerable<ISentence> GetSentencesInAscendingOrder()
         {
@@ -47,12 +44,12 @@ namespace Text_Handler
             return result.GroupBy(x => x.Chars.ToLower()).Select(x => x.First()).ToList();
         }
 
-        public IEnumerable<ISentence> GetSentencesWithoutConsonants(int length)
+        public void SentencesWithoutConsonants(int length)
         {
-            return
-                Sentences.Select(
-                    x =>
-                        x.RemoveWordsBy(y => y.Length == length && y.IsСonsonant(VolwesSeparator.RussianVolwesSeparator)));
+            Sentences = Sentences.Select(
+                x =>
+                    x.RemoveWordsBy(y => y.Length == length && y.IsСonsonant(VolwesSeparator.RussianVolwesSeparator)))
+                .ToList();
         }
 
         /// <summary>
@@ -61,10 +58,9 @@ namespace Text_Handler
         /// <param name="index">Index of sentence.</param>
         /// <param name="length">Length of word to replace.</param>
         /// <param name="elements">ISentenceItem elements that will be insert instead word into the sentence.</param>
-        /// <returns>Return new sentence with replaced words.</returns>
-        public ISentence ReplaceWordInSentence(int index, int length, IList<ISentenceItem> elements)
+        public void ReplaceWordInSentence(int index, int length, IList<ISentenceItem> elements)
         {
-            return new Sentence(Sentences[index].ReplaceWordByElements((x => x.Length == length), elements));
+            Sentences[index] = new Sentence(Sentences[index].ReplaceWordByElements((x => x.Length == length), elements));
         }
 
         /// <summary>
@@ -74,10 +70,10 @@ namespace Text_Handler
         /// <param name="length">Length of word to replace.</param>
         /// <param name="line">String with words and punctuation.</param>
         /// <param name="parseLine">Method to parse string and get new ISentence.</param>
-        /// <returns>Return new sentence with replaced words.</returns>
-        public ISentence ReplaceWordInSentence(int index, int length, string line, Func<string, ISentence> parseLine)
+        public void ReplaceWordInSentence(int index, int length, string line, Func<string, ISentence> parseLine)
         {
-            return new Sentence(Sentences[index].ReplaceWordByElements((x => x.Length == length), parseLine(line).Items));
+            Sentences[index] =
+                new Sentence(Sentences[index].ReplaceWordByElements((x => x.Length == length), parseLine(line).Items));
         }
 
         public string TextToString()

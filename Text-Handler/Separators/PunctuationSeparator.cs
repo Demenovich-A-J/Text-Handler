@@ -2,53 +2,22 @@
 {
     public static class PunctuationSeparator
     {
-        private static readonly string[] _repeatPunctuationSeparator = {"\"", "'"};
-        private static readonly string[] _endPunctuationSeparator = {"!", ".", "?", "...", "?!", "!?"};
-        private static readonly string[] _innerPunctuationSeparator = {",", ";", ":"};
-        private static readonly string[] _openPunctuationSeparator = {"<", "(", "[", "{", "„", "«", "‘"};
-        private static readonly string[] _closePunctuationSeparator = {")", ">", "]", "}", "“", "»", "’"};
-        private static readonly string[] _operationPunctuationSeparator = {"*", "/", "+", "=", "==", "!=", ">=", "=<"};
+        public static string[] RepeatPunctuationSeparator { get; } = {"\"", "'"};
 
-        private static readonly string[] _allSentenceSeparators =
-        {
+        public static string[] EndPunctuationSeparator { get; } = {"!", ".", "?", "...", "?!", "!?"};
+
+        public static string[] InnerPunctuationSeparator { get; } = {",", ";", ":"};
+
+        public static string[] OpenPunctuationSeparator { get; } = {"<", "(", "[", "{", "„", "«", "‘"};
+
+        public static string[] ClosePunctuationSeparator { get; } = {")", ">", "]", "}", "“", "»", "’"};
+
+        public static string[] AllSentenceSeparators { get; } = {
             ",", ".", "!", "?", "—", "-", "\"", "'", "(", ")",
             "<", ">", ":", ";", "[", "]", "{", "}", "‒", "–", "—",
             "―", "„", "“", "«", "»", "‘", "’", "...", "?!", "!?", "*", "/", "=", "==", "!=", ">=", "=<", "+"
         };
 
-        public static string[] RepeatPunctuationSeparator
-        {
-            get { return _repeatPunctuationSeparator; }
-        }
-
-        public static string[] EndPunctuationSeparator
-        {
-            get { return _endPunctuationSeparator; }
-        }
-
-        public static string[] InnerPunctuationSeparator
-        {
-            get { return _innerPunctuationSeparator; }
-        }
-
-        public static string[] OpenPunctuationSeparator
-        {
-            get { return _openPunctuationSeparator; }
-        }
-
-        public static string[] ClosePunctuationSeparator
-        {
-            get { return _closePunctuationSeparator; }
-        }
-
-        public static string[] AllSentenceSeparators
-        {
-            get { return _allSentenceSeparators; }
-        }
-
-        public static string[] OperationPunctuationSeparator
-        {
-            get { return _operationPunctuationSeparator; }
-        }
+        public static string[] OperationPunctuationSeparator { get; } = {"*", "/", "+", "=", "==", "!=", ">=", "=<"};
     }
 }

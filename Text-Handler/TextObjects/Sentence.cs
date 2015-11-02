@@ -24,12 +24,10 @@ namespace Text_Handler.TextObjects
             }
         }
 
-        public IList<ISentenceItem> Items { get; private set; }
+        public IList<ISentenceItem> Items { get; }
 
         public bool IsInterrogative
-        {
-            get { return Items.Last().Chars == "?" || Items.Last().Chars == "?!" || Items.Last().Chars == "!?"; }
-        }
+            => Items.Last().Chars == "?" || Items.Last().Chars == "?!" || Items.Last().Chars == "!?";
 
         public ISentence RemoveWordsBy(Func<IWord, bool> predicate)
         {
@@ -70,6 +68,7 @@ namespace Text_Handler.TextObjects
         private void GlueWords(int index, StringBuilder sb)
         {
             _i = index;
+            var flag = false;
             while (true)
             {
                 _i++;

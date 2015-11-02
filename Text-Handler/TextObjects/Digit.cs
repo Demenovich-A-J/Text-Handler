@@ -9,7 +9,7 @@ namespace Text_Handler.TextObjects
     {
         public Digit(string chars)
         {
-            Symbols = chars != null ? chars.Select(x => new Symbol(x)).ToArray() : null;
+            Symbols = chars?.Select(x => new Symbol(x)).ToArray();
         }
 
         public string Chars
@@ -27,16 +27,10 @@ namespace Text_Handler.TextObjects
             }
         }
 
-        public Symbol[] Symbols { get; private set; }
+        public Symbol[] Symbols { get; }
 
-        public Symbol this[int index]
-        {
-            get { return Symbols[index]; }
-        }
+        public Symbol this[int index] => Symbols[index];
 
-        public int Length
-        {
-            get { return Symbols.Length; }
-        }
+        public int Length => Symbols.Length;
     }
 }

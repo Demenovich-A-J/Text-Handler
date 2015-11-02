@@ -6,15 +6,14 @@ using Text_Handler.Parser;
 
 namespace Text_Handler
 {
-    internal class Program
+    public class Program
     {
         private static void Main(string[] args)
         {
-            var line = "||============================================================||";
+            const string line = "||============================================================||";
             var parser = new TextParser();
             var streamReader = new StreamReader(@"..\..\Files\Text.txt", Encoding.Default);
             var text = parser.Parse(streamReader);
-
             //1 Вывести все предложения заданного текста в порядке возрастания количества слов в каждом из них.
             foreach (var sentence in text.GetSentencesInAscendingOrder())
             {
@@ -31,10 +30,8 @@ namespace Text_Handler
 
 
             //3 Из текста удалить все слова заданной длины, начинающиеся на согласную букву.
-            foreach (var sentence in text.GetSentencesWithoutConsonants(3))
-            {
-                Console.WriteLine(sentence.SentenceToString());
-            }
+            text.SentencesWithoutConsonants(3);
+            Console.WriteLine(text.TextToString());
             Console.WriteLine(line);
 
             //4 В некотором предложении текста слова заданной длины заменить указанной подстрокой, 
@@ -43,17 +40,16 @@ namespace Text_Handler
             //Есть два варианта
 
             //1 Передается строка и метод по которому ее нужно распарсить.
-            var variant1 = text.ReplaceWordInSentence(0, 3, "строка, с различными элементами", parser.ParseSentence);
+            text.ReplaceWordInSentence(0, 4, "строка, с различными элементами", parser.ParseSentence);
 
-            Console.WriteLine(variant1.SentenceToString());
+            Console.WriteLine(text.TextToString());
 
             Console.WriteLine(line);
 
             //2 Передается коллекция объектов типа ISentenceItem.
-            var variant2 = text.ReplaceWordInSentence(0, 6,
-                parser.ParseSentence("строка, с различными элементами").Items.ToList());
+            text.ReplaceWordInSentence(0, 6, parser.ParseSentence("строка, с различными элементами").Items.ToList());
 
-            Console.WriteLine(variant2.SentenceToString());
+            Console.WriteLine(text.TextToString());
 
             Console.WriteLine(line);
 
