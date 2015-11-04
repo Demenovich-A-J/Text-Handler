@@ -7,3 +7,6 @@ D:\SourceTreeProjects\Text-Handler\Text-Handler\obj\Debug\Text-Handler.pdb
 E:\GitProjects\Text-Handler\Text-Handler\bin\Debug\Text-Handler.exe.config
 E:\GitProjects\Text-Handler\Text-Handler\obj\Debug\Text-Handler.exe
 E:\GitProjects\Text-Handler\Text-Handler\obj\Debug\Text-Handler.pdb
+E:\GitProjects\Text-Handler\Text-Handler\bin\Debug\Text-Handler.exe
+E:\GitProjects\Text-Handler\Text-Handler\bin\Debug\Text-Handler.pdb
+E:\GitProjects\Text-Handler\Text-Handler\obj\Debug\Text-Handler.csprojResolveAssemblyReference.cache
